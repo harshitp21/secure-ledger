@@ -1,6 +1,14 @@
 # SecureLedger 🛡️
 ### Intelligent Fintech Ledger & Synchronous Fraud Detection Engine
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://secure-ledger-six.vercel.app)
+[![Login Portal](https://img.shields.io/badge/Login_Portal-Online-blue?style=for-the-badge&logo=nextdotjs)](https://secure-ledger-six.vercel.app/login)
+[![License: MIT](https://img.shields.io/badge/License-MIT-emerald?style=for-the-badge)](LICENSE)
+
+> 🚀 **Live Production App**: [**https://secure-ledger-six.vercel.app**](https://secure-ledger-six.vercel.app)  
+> 🔑 **Live Login Portal**: [**https://secure-ledger-six.vercel.app/login**](https://secure-ledger-six.vercel.app/login)  
+> *(One-click demo buttons are enabled on the live site — click **Harshit (Admin)** with password **`123`** to test immediately)*
+
 **SecureLedger** is a full-stack personal banking ledger and expense tracker built with Next.js 14 (App Router), TypeScript, and MongoDB. Unlike standard expense trackers, SecureLedger features an institutional-grade, **rule-based fraud and anomaly detection screening engine** running synchronously on every transaction. High-risk transactions are quarantined in escrow pending auditor review, while clean transactions settle immediately with race-condition-safe atomic balance updates.
 
 ---
