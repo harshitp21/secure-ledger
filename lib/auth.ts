@@ -2,12 +2,11 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
-import connectToDatabase from "./db";
-import User from "@/models/User";
+import { findUserByEmail } from "@/lib/services/ledger-service";
 
 const loginSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(6),
+  password: z.string().min(1, "Password is required"),
 });
 
 export const authOptions: NextAuthOptions = {
@@ -32,11 +31,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid email or password");
         }
 
-        await connectToDatabase();
-
-        const user = await User.findOne({
-          email: parsed.data.email.toLowerCase(),
-        });
+        const user = await findUserByEmail(parsed.data.email);
 
         if (!user) {
           throw new Error("No user found with this email");
@@ -52,7 +47,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         return {
-          id: user._id.toString(),
+          id: user.id,
           email: user.email,
           name: user.name,
           role: user.role,
@@ -79,7 +74,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || "secureledger_jwt_secret_fallback_key_2026",
 };
 
 export default authOptions;

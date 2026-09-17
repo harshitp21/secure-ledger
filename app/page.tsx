@@ -75,13 +75,13 @@ export default function HomePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 text-xs">
           <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
             <div className="flex items-center justify-between">
-              <span className="font-semibold text-rose-400">Auditor Admin</span>
+              <span className="font-semibold text-rose-400">Harshit (Admin)</span>
               <span className="text-[10px] bg-rose-500/10 text-rose-300 px-1.5 py-0.5 rounded border border-rose-500/20">
                 ROLE: ADMIN
               </span>
             </div>
-            <p className="text-slate-300 font-mono">admin@secureledger.com</p>
-            <p className="text-slate-400 font-mono">Admin@123</p>
+            <p className="text-slate-300 font-mono">harshit@secureledger.com</p>
+            <p className="text-slate-400 font-mono">123</p>
             <p className="text-[11px] text-slate-500 pt-1">
               Reviews & adjudicates flagged transactions with audit logging.
             </p>

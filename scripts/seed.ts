@@ -32,19 +32,19 @@ async function runSeed() {
 
   const defaultPasswordHash = await bcrypt.hash("User@123", 10);
   const adminPasswordHash = await bcrypt.hash(
-    process.env.ADMIN_PASSWORD || "Admin@123",
+    process.env.ADMIN_PASSWORD || "123",
     10
   );
 
   // 1. Create Admin User
-  const adminEmail = process.env.ADMIN_EMAIL || "admin@secureledger.com";
+  const adminEmail = process.env.ADMIN_EMAIL || "harshit@secureledger.com";
   const adminUser = await User.create({
-    name: "Auditor Admin",
+    name: "Harshit",
     email: adminEmail.toLowerCase(),
     passwordHash: adminPasswordHash,
     role: "admin",
   });
-  console.log(`✅ Created Admin: ${adminUser.email} (Password: Admin@123)`);
+  console.log(`✅ Created Admin: ${adminUser.email} (Password: 123)`);
 
   const adminAccount = await Account.create({
     userId: adminUser._id,

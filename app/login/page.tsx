@@ -174,11 +174,11 @@ function LoginForm() {
 
               <button
                 type="button"
-                onClick={() => handleQuickLogin("admin@secureledger.com", "Admin@123")}
+                onClick={() => handleQuickLogin("harshit@secureledger.com", "123")}
                 className="p-2 rounded-lg bg-slate-950 hover:bg-slate-800/80 border border-slate-800 text-left transition-colors text-slate-300"
               >
-                <div className="font-semibold text-rose-400">Admin (Auditor)</div>
-                <div className="text-[10px] text-slate-500 truncate">Flagged Review</div>
+                <div className="font-semibold text-rose-400">Harshit (Admin)</div>
+                <div className="text-[10px] text-slate-500 truncate">Pass: 123 • Auditor</div>
               </button>
 
               <button

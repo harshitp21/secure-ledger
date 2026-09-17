@@ -2,13 +2,10 @@ import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable inside .env.local");
-}
-
 interface MongooseCache {
   conn: typeof mongoose | null;
   promise: Promise<typeof mongoose> | null;
+  hasFailed: boolean;
 }
 
 declare global {
@@ -19,6 +16,7 @@ declare global {
 let cached: MongooseCache = global.mongooseCache || {
   conn: null,
   promise: null,
+  hasFailed: false,
 };
 
 if (!global.mongooseCache) {
@@ -26,30 +24,37 @@ if (!global.mongooseCache) {
 }
 
 export async function connectToDatabase(): Promise<typeof mongoose> {
-  if (cached.conn) {
+  if (cached.conn && cached.conn.connection.readyState === 1) {
     return cached.conn;
+  }
+
+  if (!MONGODB_URI) {
+    throw new Error("MONGODB_URI is not defined");
   }
 
   if (!cached.promise) {
     const opts: mongoose.ConnectOptions = {
       bufferCommands: false,
       maxPoolSize: 10,
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 2000, // Quick timeout to failover gracefully
+      connectTimeoutMS: 2000,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI!, opts).then((m) => {
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((m) => {
+      cached.hasFailed = false;
       return m;
     });
   }
 
   try {
     cached.conn = await cached.promise;
-  } catch (e) {
+    return cached.conn;
+  } catch (e: any) {
     cached.promise = null;
+    cached.hasFailed = true;
+    // Rethrow error to be handled by caller service layer
     throw e;
   }
-
-  return cached.conn;
 }
 
 export default connectToDatabase;
