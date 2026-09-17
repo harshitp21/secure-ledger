@@ -4,7 +4,13 @@ import User from "@/models/User";
 import Account from "@/models/Account";
 import Transaction, { TransactionType, TransactionCategory } from "@/models/Transaction";
 import AuditLog from "@/models/AuditLog";
-import { memoryStore, StoredUser, StoredAccount, StoredTransaction } from "@/lib/store";
+import {
+  memoryStore,
+  StoredUser,
+  StoredAccount,
+  StoredTransaction,
+  StoredAuditLog,
+} from "@/lib/store";
 import { runFraudScreening } from "@/lib/fraud-rules";
 
 async function isMongoConnected(): Promise<boolean> {
